@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  hapi-api:
+    container_name: hapi-api
+    env_file:
+      - .env
+    build: .
+    ports:
+      - "9000:3000"
+    links:
+      - mongo
+    command: npm run dev
+    volumes:
+      - .:/app
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/mongodb/db:/data/db
